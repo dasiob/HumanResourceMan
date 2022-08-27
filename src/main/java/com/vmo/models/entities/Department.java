@@ -1,5 +1,6 @@
 package com.vmo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vmo.common.enums.DepartmentNames;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,4 +35,9 @@ public class Department {
 
     @ManyToMany(mappedBy = "departments")
     private List<User> users;
+
+    public Department(DepartmentNames departmentNames) {
+        super();
+        this.departmentName = departmentNames;
+    }
 }

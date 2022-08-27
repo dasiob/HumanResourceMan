@@ -6,9 +6,9 @@ import com.vmo.models.response.UserDto;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
-    User createUser(UserDto userDto);
-    User updateUser(int userId, UserDto userDto);
+    List<UserDto> getAllUsers();
+    UserDto createUser(UserDto userDto);
+    UserDto updateUser(int userId, UserDto userDto);
     void deleteUser(int userId);
-    User getUserById(int userId);
+    UserDto getUserById(int userId);
 }

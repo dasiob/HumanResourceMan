@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
-    @Query(nativeQuery = true, value = "select * from departments where department_name = ?;")
-    Department findByName(DepartmentNames departmentName);
+    Department findBydepartmentName(DepartmentNames departmentName);
 }

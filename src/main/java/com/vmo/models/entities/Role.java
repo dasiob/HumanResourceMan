@@ -1,5 +1,6 @@
 package com.vmo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vmo.common.enums.RoleNames;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Role {
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
+    @JsonIgnore()
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 }
