@@ -1,6 +1,5 @@
 package com.vmo.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vmo.common.enums.RoleNames;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
-    @Column(unique = true, nullable = false, length = 20, name = "roleName")
+    @Column(unique = true, nullable = false, length = 25, name = "roleName")
     @Enumerated(EnumType.STRING)
     private RoleNames roleName;
     @CreationTimestamp
@@ -33,7 +32,10 @@ public class Role {
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-    @JsonIgnore()
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
+
+    public Role(RoleNames roleName) {
+        this.roleName = roleName;
+    }
 }

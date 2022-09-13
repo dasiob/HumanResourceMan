@@ -1,7 +1,5 @@
 package com.vmo.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vmo.common.enums.DepartmentNames;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +20,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int departmentId;
     @Column(unique = true, nullable = false, length = 20, name = "departmentName")
-    @Enumerated(EnumType.STRING)
-    private DepartmentNames departmentName;
+    private String departmentName;
     @CreationTimestamp
     @Column(name = "createdAt")
     private Date createAt;
@@ -36,7 +33,7 @@ public class Department {
     @ManyToMany(mappedBy = "departments")
     private List<User> users;
 
-    public Department(DepartmentNames departmentNames) {
+    public Department(String departmentNames) {
         super();
         this.departmentName = departmentNames;
     }

@@ -1,6 +1,5 @@
 package com.vmo.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,7 @@ public class User {
     private String lastName;
     @Column(unique = true, nullable = false, length = 20, name = "userName")
     private String userName;
-    @Column(nullable = false, length = 50, name = "password")
+    @Column(nullable = false, length = 100, name = "password")
     private String password;
     @Column(unique = true, nullable = false, length = 30, name = "email")
     private String email;

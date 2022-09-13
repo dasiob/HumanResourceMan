@@ -1,42 +1,40 @@
 package com.vmo.controller;
 
-import com.vmo.models.entities.User;
-import com.vmo.models.response.UserDto;
+import com.vmo.models.request.UserDto;
 import com.vmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/listUsers")
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
-    }
+    @Value("${project.image}")
+    private String path;
 
     @PostMapping("/addUser")
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        return  userService.createUser(userDto);
+    public ResponseEntity<?> createUser(@RequestPart UserDto userDto, @RequestPart("image") MultipartFile image) {
+        return  ResponseEntity.ok(userService.createUser(userDto, image));
     }
 
     @PutMapping("/updateUser/{userId}")
-    public UserDto updateUser(@PathVariable int userId, @RequestBody UserDto userDto) {
-        return userService.updateUser(userId, userDto);
+    public ResponseEntity<?> updateUser(@PathVariable int userId, @RequestPart UserDto userDto, @RequestPart("image") MultipartFile image) {
+        return ResponseEntity.ok(userService.updateUser(userId, userDto, image));
     }
 
     @DeleteMapping("/deleteUser/{userId}")
-    public void deleteUser(@PathVariable int userId) {
-        userService.deleteUser(userId);
+    public ResponseEntity<?> deleteUser(@PathVariable int userId) {
+        return ResponseEntity.ok(userService.deleteUser(userId));
     }
 
     @GetMapping("/user/{userId}")
-    public UserDto getUserById(@PathVariable int userId) {
-        return userService.getUserById(userId);
-    }
+    public ResponseEntity<?> getUserById(@PathVariable int userId) {
+            return ResponseEntity.ok(userService.getUserById(userId));
+        }
 }
