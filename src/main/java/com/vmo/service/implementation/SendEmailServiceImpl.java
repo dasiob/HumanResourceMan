@@ -13,11 +13,11 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class SendEmailServiceImp implements SendEmailService {
+public class SendEmailServiceImpl implements SendEmailService {
 
     @Autowired
     private JavaMailSender mailSender;
-    private final static Logger logger = LoggerFactory.getLogger(SendEmailServiceImp.class);
+    private final static Logger logger = LoggerFactory.getLogger(SendEmailServiceImpl.class);
 
     @Override
     @Async

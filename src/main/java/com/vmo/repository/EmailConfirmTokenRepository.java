@@ -1,21 +1,21 @@
 package com.vmo.repository;
 
-import com.vmo.models.entities.User;
+import com.vmo.models.entities.EmailConfirmToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-    User findByuserName(String userName);
-    Optional<User> findByemail(String email);
+public interface EmailConfirmTokenRepository extends JpaRepository<EmailConfirmToken, Integer> {
+    Optional<EmailConfirmToken> findBytoken(String token);
 
     @Transactional
     @Modifying
-    @Query("UPDATE User a SET a.isDeleted=false WHERE a.email=?1")
-    void enableUser(String email);
+    @Query("UPDATE EmailConfirmToken c SET c.confirmedAt = ?2 WHERE c.token = ?1")
+    void updateConfirmedAt(String token, LocalDateTime localDateTime);
 }

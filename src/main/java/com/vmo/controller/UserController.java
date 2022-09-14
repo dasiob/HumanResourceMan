@@ -18,11 +18,6 @@ public class UserController {
     @Value("${project.image}")
     private String path;
 
-    @PostMapping("/addUser")
-    public ResponseEntity<?> createUser(@RequestPart UserDto userDto, @RequestPart("image") MultipartFile image) {
-        return  ResponseEntity.ok(userService.createUser(userDto, image));
-    }
-
     @PutMapping("/updateUser/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable int userId, @RequestPart UserDto userDto, @RequestPart("image") MultipartFile image) {
         return ResponseEntity.ok(userService.updateUser(userId, userDto, image));
