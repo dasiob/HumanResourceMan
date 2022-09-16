@@ -5,10 +5,12 @@ import com.vmo.repository.EmailConfirmTokenRepository;
 import com.vmo.service.ConfirmTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ConfirmTokenServiceImpl implements ConfirmTokenService {
 
     @Autowired

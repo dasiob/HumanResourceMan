@@ -57,6 +57,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         List<Role> roleList = new ArrayList<>();
         roleList.add(roleRepository.findByroleName(RoleNames.ROLE_USER));
         user.setRoles(roleList);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDeleted(true);
         userRepository.save(user);
 

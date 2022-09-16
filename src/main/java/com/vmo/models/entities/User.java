@@ -59,4 +59,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "departmentId"))
     private List<Department> departments;
 
+    @OneToMany(mappedBy = "user")
+    private List<Family> families;
 }

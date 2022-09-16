@@ -1,7 +1,9 @@
 package com.vmo.controller;
 
+import com.vmo.models.request.LeavePlanningDto;
 import com.vmo.models.request.UserDto;
 import com.vmo.models.response.UserPagingResponse;
+import com.vmo.service.LeavePlanningService;
 import com.vmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +17,36 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private LeavePlanningService leavePlanningService;
 
     @Value("${project.image}")
     private String path;
 
+    @GetMapping("/listPlans")
+    public ResponseEntity<?> getLeavePlanningListAdmin() {
+        return ResponseEntity.ok(leavePlanningService.getLeavePlanningListAdmin());
+    }
+
+    @PostMapping("/addPlan/{userId}")
+    public ResponseEntity<?> addLeavePlan(@RequestBody LeavePlanningDto leavePlanningDto, @PathVariable int userId) {
+        return ResponseEntity.ok(leavePlanningService.addLeavePlan(leavePlanningDto, userId));
+    }
+
+    @PutMapping("/updatePlan/{planId}")
+    public ResponseEntity<?> updateLeavePlanByAdmin(@RequestBody LeavePlanningDto leavePlanningDto, @PathVariable int planId) {
+        return ResponseEntity.ok(leavePlanningService.updateLeavePlanByAdmin(leavePlanningDto, planId));
+    }
+
+    @DeleteMapping("/deletePlan/{planId}")
+    public ResponseEntity<?> deleteLeavePlan(@PathVariable int planId) {
+        return ResponseEntity.ok(leavePlanningService.deleteLeavePlan(planId));
+    }
+
+    @GetMapping("/getDaysOfAbsences")
+    public ResponseEntity<?> getTotalLeaveDaysOfAUser(@RequestParam int userId, @RequestParam int year) {
+        return ResponseEntity.ok(leavePlanningService.getTotalLeaveDaysOfAUser(userId, year));
+    }
 
     @GetMapping("/listUsers")
     public UserPagingResponse getAllUsers(@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,

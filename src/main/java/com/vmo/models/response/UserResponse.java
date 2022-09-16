@@ -1,6 +1,7 @@
 package com.vmo.models.response;
 
 import com.vmo.models.request.DepartmentDto;
+import com.vmo.models.request.FamilyDto;
 import com.vmo.models.request.RoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class UserResponse {
     private String avatarPath;
     private String email;
     private String phone;
+    private List<FamilyDto> familyDtos;
     private List<DepartmentDto> departmentDtos;
     private List<RoleDto> roleDtos;
 }

@@ -7,6 +7,7 @@ import com.vmo.models.entities.Department;
 import com.vmo.models.entities.Role;
 import com.vmo.models.entities.User;
 import com.vmo.models.request.DepartmentDto;
+import com.vmo.models.request.FamilyDto;
 import com.vmo.models.request.RoleDto;
 import com.vmo.models.request.UserDto;
 import com.vmo.models.response.Message;
@@ -58,7 +59,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private String path;
 
     @Override
-    @Transactional
     public UserPagingResponse getAllUsers(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         List<UserResponse> content = new ArrayList<>();
@@ -70,6 +70,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             content.get(i).setRoleDtos(roleDtoList);
             List<DepartmentDto> departmentDtoList = MapperUtil.mapList(userList.get(i).getDepartments(), DepartmentDto.class);
             content.get(i).setDepartmentDtos(departmentDtoList);
+            List<FamilyDto> familyDtoList = MapperUtil.mapList(userList.get(i).getFamilies(), FamilyDto.class);
+            content.get(i).setFamilyDtos(familyDtoList);
         }
 
         UserPagingResponse userPagingResponse = new UserPagingResponse();
@@ -84,7 +86,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserResponse createUser(UserDto userDto, MultipartFile file) {
         UserResponse userResponse = new UserResponse();
         User user = MapperUtil.map(userDto, User.class);
@@ -124,7 +125,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserResponse updateUser(int userId, UserDto userDto, MultipartFile file) {
         UserResponse userResponse = new UserResponse();
         User existedUser = userRepository.findById(userId).get();
@@ -160,7 +160,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public Message deleteUser(int userId) {
         User user = userRepository.findById(userId).get();
         user.setDeleted(true);
